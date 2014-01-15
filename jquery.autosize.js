@@ -15,7 +15,7 @@
 	},
 
 	// border:0 is unnecessary, but avoids a bug in Firefox on OSX
-	copy = '<textarea tabindex="-1" style="position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; padding: 0; -moz-box-sizing:content-box; -webkit-box-sizing:content-box; box-sizing:content-box; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden; transition:none; -webkit-transition:none; -moz-transition:none;"/>',
+	copy = '<textarea tabindex="-1" style="position:absolute; top:-999px; left:0; right:auto; bottom:auto; border:0; padding: 0; word-wrap:break-word; height:0 !important; min-height:0 !important; overflow:hidden;"/>',
 
 	// line-height is conditionally included because IE7/IE8/old Opera do not return the correct value.
 	typographyStyles = [
@@ -33,7 +33,14 @@
 	mirrored,
 
 	// the mirror element, which is used to calculate what size the mirrored element should be.
-	mirror = $(copy).data('autosize', true)[0];
+	mirror = $(copy).data('autosize', true).css({
+		'-moz-box-sizing': 'content-box', 
+		'-webkit-box-sizing': 'content-box',
+		'box-sizing': 'content-box',
+		'-moz-transition': 'none',
+		'-webkit-transition': 'none',
+		'transition': 'none'
+	})[0];
 
 	// test that line-height can be accurately copied.
 	mirror.style.lineHeight = '99px';
